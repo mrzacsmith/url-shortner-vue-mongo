@@ -36,13 +36,16 @@ const schema = yup.object().shape({
 app.post('/url', async (req, res) => {
   const { slug, url } = req.body
   try {
-    if (!slug) {
-      slug = nanoid()
-    }
     await schema.validate({
       slug,
       url,
     })
+    if (!slug) {
+      slug = nanoid()
+    }
+    slug = slug.toLowerCase()
+  } catch (err) {
+    console.log(err)
   }
 })
 const PORT = process.env.PORT || 5000
