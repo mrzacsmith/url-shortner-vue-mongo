@@ -33,7 +33,7 @@ const schema = yup.object().shape({
   url: yup.string().trim().url().required(),
 })
 
-app.post('/url', async (req, res) => {
+app.post('/url', async (req, res, next) => {
   const { slug, url } = req.body
   try {
     await schema.validate({
@@ -44,9 +44,25 @@ app.post('/url', async (req, res) => {
       slug = nanoid()
     }
     slug = slug.toLowerCase()
+    res.json({
+      slug,
+      url,
+    })
   } catch (err) {
-    console.log(err)
+    next(err)
   }
+})
+
+app.use((error, req, res, next) => {
+  if (error.stack) {
+    res.status(error.status)
+  } else {
+    res.status(500)
+  }
+  res.status(400).json({
+    message: error.message,
+    stack: process.env.NODE_ENV === 'production' ? 'good' : error.stack,
+  })
 })
 const PORT = process.env.PORT || 5000
 
