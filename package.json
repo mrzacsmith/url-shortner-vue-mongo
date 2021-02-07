@@ -12,10 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
-    "monk": "^7.3.3",
+    "mongoose": "^5.11.16",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.20",
     "yup": "^0.32.8"

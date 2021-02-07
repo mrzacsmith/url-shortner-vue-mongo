@@ -1,11 +1,15 @@
+require('dotenv').config()
 const express = require('express')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const cors = require('cors')
 const yup = require('yup')
 const { nanoid } = require('nanoid')
+const connectDB = require('./utils/db')
+require('colors')
 
 const app = express()
+connectDB()
 
 app.use(helmet())
 app.use(morgan('dev'))
@@ -67,5 +71,5 @@ app.use((error, req, res, next) => {
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`)
+  console.log(`Listening on port http://localhost:${PORT}`.america)
 })
